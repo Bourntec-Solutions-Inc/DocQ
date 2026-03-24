@@ -1,0 +1,12 @@
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+
+    path("api/auth/", include("apps.accounts.urls")),
+    path("api/jobs/", include("apps.jobs.urls")),
+    path("api/execution/", include("apps.execution.urls")),
+    path("api/chat/", include("apps.chat.urls")),
+    path("api/scheduler/", include("apps.scheduler.urls")),
+]

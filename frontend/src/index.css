@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0f111a;
+    color: white;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Apply transition to all potential theme-changing elements for maximum smoothness */
+  div,
+  header,
+  main,
+  section,
+  nav,
+  aside,
+  button,
+  input {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+.radial-glow {
+  background: radial-gradient(circle at center, rgba(55, 125, 255, 0.15) 0%, rgba(15, 17, 26, 0) 70%);
+}
