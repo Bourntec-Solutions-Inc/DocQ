@@ -24,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l(&&s(i5$uqg7hrempr_1%#uujqy9x9=jjd0jpc*w()5ql6(0l'
+SECRET_KEY = os.getenv("SECRET_KEY", 'django-insecure-l(&&s(i5$uqg7hrempr_1%#uujqy9x9=jjd0jpc*w()5ql6(0l')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
 # Application definition
@@ -160,6 +160,12 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
+# SECURITY SETTINGS
+CORS_ALLOW_ALL_ORIGINS = DEBUG # Set to False in production for security
+if not DEBUG:
+    CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+    # If the environment variable isn't set, default to localhost for fallback
+    if not CORS_ALLOWED_ORIGINS[0]:
+        CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]
 
 AUTH_USER_MODEL = "accounts.User"
