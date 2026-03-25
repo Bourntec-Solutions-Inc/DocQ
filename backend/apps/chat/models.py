@@ -1,7 +1,7 @@
 from django.db import models
-from apps.common.models import BaseModel
-from apps.jobs.models import Job
-from apps.execution.models import Execution
+from common.models import BaseModel
+from jobs.models import Job
+from execution.models import Execution
 
 
 class ChatSession(BaseModel):

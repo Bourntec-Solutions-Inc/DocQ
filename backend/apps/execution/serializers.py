@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Execution, ExecutionResult, ExecutionLog
-from apps.jobs.models import Job
+from jobs.models import Job
 
 
 class ExecutionResultSerializer(serializers.ModelSerializer):

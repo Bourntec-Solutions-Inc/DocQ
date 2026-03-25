@@ -1,5 +1,5 @@
-from apps.execution.models import Execution, ExecutionResult
-from apps.jobs.models import JobFile
+from execution.models import Execution, ExecutionResult
+from jobs.models import JobFile
 
 def build_execution_context(execution):
     """Context built from a specific execution (results are the primary KB)"""

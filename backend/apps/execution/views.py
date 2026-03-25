@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.http import FileResponse, HttpResponse
-from apps.jobs.models import Job
+from jobs.models import Job
 from .services import execute_job
 from rest_framework import status
 from .models import Execution

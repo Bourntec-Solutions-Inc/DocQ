@@ -1,5 +1,5 @@
 from .models import Execution, ExecutionResult, ExecutionLog
-from apps.jobs.models import JobFile
+from jobs.models import JobFile
 from django.utils import timezone
 import concurrent.futures
 import requests

@@ -1,7 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.utils import timezone
 from .models import JobSchedule
-from apps.execution.services import execute_job
+from execution.services import execute_job
 import datetime
 import logging
 

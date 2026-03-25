@@ -43,8 +43,8 @@ class JobDetailAPIView(APIView):
     def get(self, request, job_id):
         try:
             job = Job.objects.get(id=job_id, user=request.user)
-            from apps.execution.models import Execution
-            from apps.execution.serializers import ExecutionSerializer
+            from execution.models import Execution
+            from execution.serializers import ExecutionSerializer
             
             executions = Execution.objects.filter(job=job).order_by('-started_at')
             
@@ -98,8 +98,8 @@ class DashboardStatsAPIView(APIView):
 
     def get(self, request):
         user = request.user
-        from apps.execution.models import Execution
-        from apps.scheduler.models import JobSchedule
+        from execution.models import Execution
+        from scheduler.models import JobSchedule
 
         active_jobs = Job.objects.filter(user=user, is_archived=False).count()
         

@@ -1,6 +1,6 @@
 from django.db import models
-from apps.common.models import BaseModel
-from apps.jobs.models import Job, JobFile
+from common.models import BaseModel
+from jobs.models import Job, JobFile
 
 
 class Execution(BaseModel):

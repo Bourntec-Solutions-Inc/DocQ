@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from apps.jobs.models import Job
-from apps.execution.models import Execution
+from jobs.models import Job
+from execution.models import Execution
 from .models import ChatSession, ChatMessage
 from .services import build_execution_context, build_job_context
 from .ai_service import generate_chat_response
