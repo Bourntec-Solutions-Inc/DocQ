@@ -48,16 +48,47 @@ VITE_API_URL=https://docq.bourntec.com/api/
 
 ## 3. Phase 2: Application Delivery
 
-### 3.1 Backend Finalization (Django)
-```bash
-# Sync database schema (SQLite by default, upgradable to Postgres)
-python manage.py migrate
+### 3.1 Database & Intelligence Lifecycle
 
-# Aggregate static assets for Nginx
+DocQ utilizes an adaptive persistence layer. While it defaults to SQLite for local development, it is architected for PostgreSQL in production.
+
+#### A. Generating & Applying Migrations
+> [!IMPORTANT]
+> Since migrations are excluded from Version Control (`.gitignore`) to prevent collaborative conflicts, you MUST generate them upon first deployment to a new environment.
+
+```bash
+cd backend
+# 1. Generate the schema definitions based on the DocQ architecture
+python manage.py makemigrations accounts jobs execution scheduler chat reports common
+
+# 2. Apply the schema to the target database
+python manage.py migrate
+```
+
+#### B. Administrative Access
+Establish the first executive identity to manage jobs and view system-wide telemetry:
+```bash
+python manage.py createsuperuser
+# Follow prompts to set email, name, and password
+```
+
+#### C. Enterprise Database (PostgreSQL Recommendation)
+For high-concurrency production workloads on `docq.bourntec.com`, replace SQLite by updating your `backend/.env`:
+1.  **Driver**: `pip install psycopg2-binary`.
+2.  **Env**: `DATABASE_URL=postgres://user:password@localhost:5432/docq_db`.
+
+---
+
+## 4. Phase 2: Application Delivery
+
+### 4.1 Backend Asset Finalization
+```bash
+# 1. Aggregate static assets for Nginx
 python manage.py collectstatic --noinput
 
-# Verify media directory permissions
-mkdir -p media/reports
+# 2. Persistence & Permissions
+# Ensure the backend can write audit results and PDF syntheses
+mkdir -p media/reports media/jobs
 chmod -R 755 media/
 ```
 
