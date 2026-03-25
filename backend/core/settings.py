@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -19,6 +20,7 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -47,13 +49,14 @@ INSTALLED_APPS = [
     "corsheaders",
 
     # Local apps
-    "apps.accounts",
-    "apps.jobs",
-    "apps.execution",
-    "apps.scheduler",
-    "apps.chat",
-    "apps.reports",
-    "apps.common",
+    "accounts",
+    "jobs",
+    "execution",
+    "scheduler",
+    "chat",
+    "reports",
+    "common",
+
 ]
 
 MIDDLEWARE = [
