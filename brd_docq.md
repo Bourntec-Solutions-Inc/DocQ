@@ -249,7 +249,11 @@ DocQ utilizes a strictly decoupled configuration model to ensure seamless moveme
 *   **Environment Files (`.env`)**:
     *   **Backend**: Manages `SECRET_KEY`, `DEBUG` (Boolean), `ALLOWED_HOSTS` (Comma-separated list), and `CORS_ALLOWED_ORIGINS`.
     *   **Frontend**: Manages `VITE_API_URL` to point to the correct inference gateway service.
-*   **Dynamic Security Logic**: The system automatically switches between `CORS_ALLOW_ALL_ORIGINS` (when `DEBUG=True`) and a strict `CORS_ALLOWED_ORIGINS` whitelist (when `DEBUG=False`) to ensure production reliability without hindering local development.
+*   **Dynamic Security Logic**: The system automatically switches between `CORS_ALLOW_ALL_ORIGINS` (when `DEBUG=True`) and a strict `CORS_ALLOWED_ORIGINS` whitelist (when `DEBUG=False`).
+*   **Production Hardening**: In production (`DEBUG=False`), the system enforces:
+    *   **SSL Redirection**: Automatically upgrades all HTTP requests to HTTPS.
+    *   **Secure Cookies**: Enforces `SESSION_COOKIE_SECURE` and `CSRF_COOKIE_SECURE` to prevent session hijacking.
+    *   **CSRF Integrity**: Dynamically generates `CSRF_TRUSTED_ORIGINS` from the `ALLOWED_HOSTS` list.
 *   **Decoupled Secrets**: All sensitive identifiers (e.g., `agent_id`) are moved to environment variables to prevent accidental credential leakage in the source repository.
 
 ### 6.2 Production Build Process

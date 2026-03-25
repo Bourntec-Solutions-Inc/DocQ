@@ -163,9 +163,14 @@ SIMPLE_JWT = {
 # SECURITY SETTINGS
 CORS_ALLOW_ALL_ORIGINS = DEBUG # Set to False in production for security
 if not DEBUG:
-    CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
-    # If the environment variable isn't set, default to localhost for fallback
-    if not CORS_ALLOWED_ORIGINS[0]:
-        CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "https://docq.bourntec.com").split(",")
+    CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host]
+    
+    # Secure Cookies & SSL
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_SSL_REDIRECT = True
 
 AUTH_USER_MODEL = "accounts.User"
